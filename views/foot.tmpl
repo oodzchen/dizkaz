@@ -2,8 +2,8 @@
     <hr style="margin-top: 100px;"/>
     <footer class="footer">
 	<div>&copy; {{now | date "2006" }} {{.BrandDomainName}}
-	    &nbsp;&nbsp; 响应时间：{{calcDuration .RespStart}}
-	    &nbsp;&nbsp; HTML渲染时间：{{calcDuration .RenderStart}}</div>
+	    &nbsp;&nbsp; {{local "ResponseTime"}}：{{calcDuration .RespStart}}
+	    &nbsp;&nbsp; {{local "HTMLResponseTime"}}：{{calcDuration .RenderStart}}</div>
 	<div class="footer__links">
 	    <a href="/about">{{local "About"}}</a>
 	    &nbsp;&nbsp;<a href="/feed">RSS</a>

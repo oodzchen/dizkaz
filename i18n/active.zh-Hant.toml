@@ -1,3 +1,8 @@
+ResponseTime = "響應時間"
+HTMLResponseTime = "HTML 渲染時間"
+AboutSiteTitle = "關於{{.SiteName}}"
+AboutSiteContent = "<p>笛卡是一個基於用戶投票對內容進行排序的互聯網社群。本社群的發起靈感來自阮一峰的<a href=\"https://www.ruanyifeng.com/blog/2012/02/ranking_algorithm_hacker_news.html\" target=\"_blank\">基於用戶投票的排名演算法</a>系列文章，同時也出於開發者本人對投票排名演算法的興趣。如果你也喜歡在互聯網上分享和發現優質內容，並基於這些內容進行高品質討論，那麼歡迎<a href=\"/register\">加入</a>。</p>"
+
 [About]
 hash = "sha1-6b21fb791ac05170893860c248401cd24a59b732"
 other = "關於"

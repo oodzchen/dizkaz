@@ -906,4 +906,25 @@ func (ic *I18nCustom) AddConfigs() {
 		ID:    "SearchSite",
 		Other: "Search",
 	})
+
+	ic.AddLocalizeConfig(&i18n.Message{
+		ID:    "ResponseTime",
+		Other: "Response time",
+	})
+
+	ic.AddLocalizeConfig(&i18n.Message{
+		ID:    "HTMLResponseTime",
+		Other: "HTML rendering time",
+	})
+
+	ic.AddLocalizeConfig(&i18n.Message{
+		ID:    "AboutSiteTitle",
+		Other: "About {{.SiteName}}",
+	})
+
+
+	ic.AddLocalizeConfig(&i18n.Message{
+		ID:    "AboutSiteContent",
+		Other: "<p>{{.SiteName}} is an online community where content is ranked by user votes. The inspiration for this community came from Ruan Yifeng's series of articles on <a href=\"https://www.ruanyifeng.com/blog/2012/02/ranking_algorithm_hacker_news.html\" target=\"_blank\">ranking algorithms based on user votes</a>, combined with the developer's own interest in the topic. If you enjoy sharing and discovering quality content online and participating in thoughtful discussions about it, please feel free to <a href=\"/register\">join</a> us.</p>",
+	})
 }

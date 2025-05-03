@@ -1,3 +1,8 @@
+ResponseTime = "応答時間"
+HTMLResponseTime = "HTML レンダリング時間"
+AboutSiteTitle = "{{.SiteName}}について"
+AboutSiteContent = "<p>笛卡は、ユーザー投票に基づいてコンテンツをランク付けするインターネットコミュニティです。このコミュニティは、阮一峰氏の<a href=\"https://www.ruanyifeng.com/blog/2012/02/ranking_algorithm_hacker_news.html\" target=\"_blank\">「ユーザー投票に基づくランキングアルゴリズム」</a>に関する一連の記事、そして開発者自身の同アルゴリズムへの関心から着想を得ています。もしあなたも、インターネットで質の高いコンテンツを共有したり発見したりすること、そしてそれらに基づいて質の高い議論を交わすことがお好きでしたら、ぜひ<a href=\"/register\">ご参加ください</a>。</p>"
+
 [About]
 hash = "sha1-6b21fb791ac05170893860c248401cd24a59b732"
 other = "アバウト"
