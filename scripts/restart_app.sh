@@ -3,7 +3,7 @@
 set -e
 
 env_file_name=${1:-.env.local.dev}
-GIT_REPO_PATH="$HOME/go/src/github.com/oodzchen/dproject/"
+GIT_REPO_PATH="$HOME/go/src/github.com/oodzchen/dizkaz/"
 DOCKER_COMPOSE_PATH="$GIT_REPO_PATH/docker-compose.yml"
 ENV_FILE="$GIT_REPO_PATH/$env_file_name"
 APP_SERVICE_NAME="webapp"

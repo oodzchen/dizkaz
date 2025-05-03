@@ -10,8 +10,8 @@ import (
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/oodzchen/dproject/model"
-	"github.com/oodzchen/dproject/utils"
+	"github.com/oodzchen/dizkaz/model"
+	"github.com/oodzchen/dizkaz/utils"
 )
 
 var afterUpdateWeights func() error

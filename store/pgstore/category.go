@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/oodzchen/dproject/model"
+	"github.com/oodzchen/dizkaz/model"
 )
 
 type Category struct {

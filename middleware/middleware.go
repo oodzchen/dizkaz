@@ -12,11 +12,11 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/gorilla/sessions"
-	i18nc "github.com/oodzchen/dproject/i18n"
-	"github.com/oodzchen/dproject/model"
-	"github.com/oodzchen/dproject/service"
-	"github.com/oodzchen/dproject/store"
-	"github.com/oodzchen/dproject/utils"
+	i18nc "github.com/oodzchen/dizkaz/i18n"
+	"github.com/oodzchen/dizkaz/model"
+	"github.com/oodzchen/dizkaz/service"
+	"github.com/oodzchen/dizkaz/store"
+	"github.com/oodzchen/dizkaz/utils"
 	"github.com/oschwald/geoip2-golang"
 	"github.com/pkg/errors"
 )

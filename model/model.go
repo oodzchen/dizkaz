@@ -1,7 +1,7 @@
 package model
 
 import (
-	i18nc "github.com/oodzchen/dproject/i18n"
+	i18nc "github.com/oodzchen/dizkaz/i18n"
 )
 
 var translator *i18nc.I18nCustom

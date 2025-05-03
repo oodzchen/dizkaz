@@ -12,7 +12,7 @@ adds_file=/tmp/data/adds.sql
 
 psql -v db_name="$DB_NAME" \
      -v db_user="$DB_USER" \
-     -v admin_password="'$ADMIN_PASSWORD'" \
+     -v admin_password="'$DB_PASSWORD'" \
      -v user_default_password="'$encrypted_user_password'" \
      -f $parent_path/b_seed.sql.tpl
 

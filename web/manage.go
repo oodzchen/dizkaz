@@ -12,8 +12,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/jackc/pgx/v5/pgconn"
-	mdw "github.com/oodzchen/dproject/middleware"
-	"github.com/oodzchen/dproject/model"
+	mdw "github.com/oodzchen/dizkaz/middleware"
+	"github.com/oodzchen/dizkaz/model"
 	"github.com/pkg/errors"
 )
 

@@ -4,8 +4,8 @@ import (
 	"errors"
 
 	"github.com/microcosm-cc/bluemonday"
-	"github.com/oodzchen/dproject/model"
-	"github.com/oodzchen/dproject/store"
+	"github.com/oodzchen/dizkaz/model"
+	"github.com/oodzchen/dizkaz/store"
 )
 
 type UserListType string

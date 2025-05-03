@@ -5,7 +5,7 @@ import (
 	"errors"
 
 	chp "github.com/chromedp/chromedp"
-	"github.com/oodzchen/dproject/config"
+	"github.com/oodzchen/dizkaz/config"
 )
 
 type Mock struct {

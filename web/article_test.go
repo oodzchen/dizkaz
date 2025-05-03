@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/oodzchen/dproject/model"
-	"github.com/oodzchen/dproject/utils"
+	"github.com/oodzchen/dizkaz/model"
+	"github.com/oodzchen/dizkaz/utils"
 )
 
 func TestGenArticleTree(t *testing.T) {

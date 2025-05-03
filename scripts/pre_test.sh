@@ -3,10 +3,11 @@
 # store_testdata=./store/testdata
 config_dir=./config
 
+echo "PG_USER=$PG_USER" > ./.env.testing
 echo "PG_PASSWORD=$PG_PASSWORD" > ./.env.testing
 echo "DB_NAME=$DB_NAME" >> ./.env.testing
 echo "DB_USER=$DB_USER" >> ./.env.testing
-echo "ADMIN_PASSWORD=$ADMIN_PASSWORD" >> ./.env.testing
+echo "DB_PASSWORD=$DB_PASSWORD" >> ./.env.testing
 echo "USER_DEFAULT_PASSWORD=$USER_DEFAULT_PASSWORD" >> ./.env.testing
 echo "DB_HOST=$DB_HOST" >> ./.env.testing
 echo "DB_PORT=$DB_PORT" >> ./.env.testing

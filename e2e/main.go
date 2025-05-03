@@ -12,9 +12,9 @@ import (
 
 	"github.com/brianvoe/gofakeit/v6"
 	chp "github.com/chromedp/chromedp"
-	"github.com/oodzchen/dproject/config"
-	"github.com/oodzchen/dproject/mocktool"
-	mt "github.com/oodzchen/dproject/mocktool"
+	"github.com/oodzchen/dizkaz/config"
+	"github.com/oodzchen/dizkaz/mocktool"
+	mt "github.com/oodzchen/dizkaz/mocktool"
 	"github.com/pkg/errors"
 )
 

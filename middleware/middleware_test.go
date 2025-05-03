@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/oodzchen/dproject/model"
+	"github.com/oodzchen/dizkaz/model"
 )
 
 func TestParseStrLang(t *testing.T) {

@@ -10,7 +10,7 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/oodzchen/dproject/utils"
+	"github.com/oodzchen/dizkaz/utils"
 )
 
 var TmplFuncs = template.FuncMap{

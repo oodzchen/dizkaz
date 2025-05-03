@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/oodzchen/dproject/config"
-	mt "github.com/oodzchen/dproject/mocktool"
-	"github.com/oodzchen/dproject/store/pgstore"
+	"github.com/oodzchen/dizkaz/config"
+	mt "github.com/oodzchen/dizkaz/mocktool"
+	"github.com/oodzchen/dizkaz/store/pgstore"
 	"golang.org/x/crypto/bcrypt"
 )
 

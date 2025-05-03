@@ -8,9 +8,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/jackc/pgx/v5"
-	mdw "github.com/oodzchen/dproject/middleware"
-	"github.com/oodzchen/dproject/model"
-	"github.com/oodzchen/dproject/service"
+	mdw "github.com/oodzchen/dizkaz/middleware"
+	"github.com/oodzchen/dizkaz/model"
+	"github.com/oodzchen/dizkaz/service"
 	"github.com/pkg/errors"
 )
 

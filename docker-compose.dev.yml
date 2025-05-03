@@ -8,11 +8,11 @@ services:
       - ./config/db/initdb:/docker-entrypoint-initdb.d/
       - ./config/db:/tmp/data
     environment:
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=$PG_USER
       - POSTGRES_PASSWORD=$PG_PASSWORD
       - DB_NAME=$DB_NAME
       - DB_USER=$DB_USER
-      - ADMIN_PASSWORD=$ADMIN_PASSWORD
+      - DB_PASSWORD=$DB_PASSWORD
       - USER_DEFAULT_PASSWORD=$USER_DEFAULT_PASSWORD
       - PGTZ=UTC
     ports:

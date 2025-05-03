@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/oodzchen/dproject/config"
-	"github.com/oodzchen/dproject/model"
-	"github.com/oodzchen/dproject/store"
+	"github.com/oodzchen/dizkaz/config"
+	"github.com/oodzchen/dizkaz/model"
+	"github.com/oodzchen/dizkaz/store"
 )
 
 type Permission struct {

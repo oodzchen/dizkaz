@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   webapp:
-    image: kholinchen/dproject:$APP_VERSION
+    image: kholinchen/dizkaz:$APP_VERSION
     container_name: "webapp-app-1"
     restart: always
     environment:
@@ -11,7 +11,7 @@ services:
       DOMAIN_NAME: $DOMAIN_NAME
       DB_NAME: $DB_NAME
       DB_USER: $DB_USER
-      ADMIN_PASSWORD: $ADMIN_PASSWORD
+      DB_PASSWORD: $DB_PASSWORD
       ADMIN_EMAIL: $ADMIN_EMAIL
       USER_DEFAULT_PASSWORD: $USER_DEFAULT_PASSWORD
       APP_PORT: $APP_PORT
@@ -61,7 +61,7 @@ services:
       - POSTGRES_PASSWORD=$PG_PASSWORD
       - DB_NAME=$DB_NAME
       - DB_USER=$DB_USER
-      - ADMIN_PASSWORD=$ADMIN_PASSWORD
+      - DB_PASSWORD=$DB_PASSWORD
       - USER_DEFAULT_PASSWORD=$USER_DEFAULT_PASSWORD
       - PGTZ=UTC
     healthcheck:

@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/oodzchen/dproject/config"
+	"github.com/oodzchen/dizkaz/config"
 )
 
 // Print data as JSON string with prefix

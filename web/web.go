@@ -9,7 +9,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/gorilla/sessions"
-	"github.com/oodzchen/dproject/utils"
+	"github.com/oodzchen/dizkaz/utils"
 	"github.com/pkg/errors"
 )
 

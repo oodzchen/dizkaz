@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/oodzchen/dproject/model"
+	"github.com/oodzchen/dizkaz/model"
 	"github.com/redis/go-redis/v9"
 )
 

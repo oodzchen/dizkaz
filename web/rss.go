@@ -9,9 +9,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/gorilla/feeds"
-	"github.com/oodzchen/dproject/config"
-	"github.com/oodzchen/dproject/model"
-	"github.com/oodzchen/dproject/utils"
+	"github.com/oodzchen/dizkaz/config"
+	"github.com/oodzchen/dizkaz/model"
+	"github.com/oodzchen/dizkaz/utils"
 )
 
 type RSSResource struct {

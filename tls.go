@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/oodzchen/dproject/config"
+	"github.com/oodzchen/dizkaz/config"
 	"golang.org/x/crypto/acme/autocert"
 )
 

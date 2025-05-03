@@ -13,7 +13,7 @@ import (
 
 	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/microcosm-cc/bluemonday"
-	i18nc "github.com/oodzchen/dproject/i18n"
+	i18nc "github.com/oodzchen/dizkaz/i18n"
 	"github.com/sergi/go-diff/diffmatchpatch"
 )
 

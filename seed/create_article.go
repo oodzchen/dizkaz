@@ -8,9 +8,9 @@ import (
 	"time"
 
 	chp "github.com/chromedp/chromedp"
-	"github.com/oodzchen/dproject/config"
-	"github.com/oodzchen/dproject/mocktool"
-	"github.com/oodzchen/dproject/service"
+	"github.com/oodzchen/dizkaz/config"
+	"github.com/oodzchen/dizkaz/mocktool"
+	"github.com/oodzchen/dizkaz/service"
 )
 
 func seedArticles(userSrv *service.User, articleSrv *service.Article, startTime time.Time, categoryFrontId string) {

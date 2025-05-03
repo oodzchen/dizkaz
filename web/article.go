@@ -14,10 +14,10 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/httprate"
 	"github.com/jackc/pgx/v5"
-	mdw "github.com/oodzchen/dproject/middleware"
-	"github.com/oodzchen/dproject/model"
-	"github.com/oodzchen/dproject/service"
-	"github.com/oodzchen/dproject/utils"
+	mdw "github.com/oodzchen/dizkaz/middleware"
+	"github.com/oodzchen/dizkaz/model"
+	"github.com/oodzchen/dizkaz/service"
+	"github.com/oodzchen/dizkaz/utils"
 	"github.com/pkg/errors"
 )
 

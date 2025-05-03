@@ -64,14 +64,14 @@ type DBConfig struct {
 	DBName              string `env:"DB_NAME"`
 	DBPort              int    `env:"DB_PORT"`
 	DBUser              string `env:"DB_USER"`
-	AdminPassword       string `env:"ADMIN_PASSWORD"`
+	DBPassword          string `env:"DB_PASSWORD"`
 	UserDefaultPassword string `env:"USER_DEFAULT_PASSWORD"`
 }
 
 func (dbCfg *DBConfig) GetDSN() string {
 	return fmt.Sprintf("postgres://%s:%s@%s:%d/%s",
 		dbCfg.DBUser,
-		dbCfg.AdminPassword,
+		dbCfg.DBPassword,
 		dbCfg.DBHost,
 		dbCfg.DBPort,
 		dbCfg.DBName,

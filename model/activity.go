@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	i18nc "github.com/oodzchen/dproject/i18n"
+	i18nc "github.com/oodzchen/dizkaz/i18n"
 )
 
 type Activity struct {

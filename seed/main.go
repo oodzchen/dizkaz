@@ -9,11 +9,11 @@ import (
 	"time"
 
 	"github.com/microcosm-cc/bluemonday"
-	"github.com/oodzchen/dproject/config"
-	"github.com/oodzchen/dproject/mocktool"
-	"github.com/oodzchen/dproject/service"
-	"github.com/oodzchen/dproject/store"
-	"github.com/oodzchen/dproject/store/pgstore"
+	"github.com/oodzchen/dizkaz/config"
+	"github.com/oodzchen/dizkaz/mocktool"
+	"github.com/oodzchen/dizkaz/service"
+	"github.com/oodzchen/dizkaz/store"
+	"github.com/oodzchen/dizkaz/store/pgstore"
 )
 
 const timeoutDuration int = 300

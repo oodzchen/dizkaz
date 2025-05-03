@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/oodzchen/dproject/model"
-	"github.com/oodzchen/dproject/store/pgstore"
+	"github.com/oodzchen/dizkaz/model"
+	"github.com/oodzchen/dizkaz/store/pgstore"
 	"github.com/redis/go-redis/v9"
 )
 

@@ -25,4 +25,4 @@ RUN apk update && apk add curl
 
 COPY --from=build-stage /app/dist .
 
-CMD ["/app/bin/dproject"]
+CMD ["/app/bin/dizkaz"]

@@ -11,7 +11,7 @@ import (
 
 	"github.com/emersion/go-sasl"
 	"github.com/emersion/go-smtp"
-	i18nc "github.com/oodzchen/dproject/i18n"
+	i18nc "github.com/oodzchen/dizkaz/i18n"
 )
 
 type Mail struct {

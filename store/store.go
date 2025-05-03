@@ -3,7 +3,7 @@ package store
 import (
 	"time"
 
-	"github.com/oodzchen/dproject/model"
+	"github.com/oodzchen/dizkaz/model"
 )
 
 type Store struct {

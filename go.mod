@@ -1,4 +1,4 @@
-module github.com/oodzchen/dproject
+module github.com/oodzchen/dizkaz
 
 go 1.21
 
