@@ -77,5 +77,5 @@ jobs:
   #           echo "output tag: " ${{ steps.vars.outputs.tag }}
   #           APP_VERSION=${{ steps.vars.outputs.tag }}
   #           echo "APP_VERSION: $APP_VERSION"
-  #           APP_VERSION=${{ steps.vars.outputs.tag }} $HOME/go/src/github.com/oodzchen/dproject/scripts/restart_app.sh
+  #           APP_VERSION=${{ steps.vars.outputs.tag }} $HOME/go/src/github.com/oodzchen/dizkaz/scripts/restart_app.sh
   #           docker ps
