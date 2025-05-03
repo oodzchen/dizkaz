@@ -1,5 +1,7 @@
 # dizkaz
 
+[English](../README.md) | 中文
+
 一个轻量级Web 社区系统用于在线话题讨论。
 
 ## 开发说明

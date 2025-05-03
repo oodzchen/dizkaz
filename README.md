@@ -1,5 +1,7 @@
 # dizkaz
 
+English | [中文](./doc/zh.md)
+
 A lightweight web community system for online topic discussion.
 
 ## Development Instructions
