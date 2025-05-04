@@ -53,7 +53,7 @@ services:
     restart: always
     user: postgres
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - dproject_db-data:/var/lib/postgresql/data
       - ./config/db/initdb:/docker-entrypoint-initdb.d:ro
       - ./config/db:/tmp/data:ro
     environment:
@@ -125,7 +125,7 @@ services:
       - REDIS_PASSWORD=$REDIS_PASSWORD
       - REDISCLI_AUTH=$REDISCLI_AUTH
     volumes:
-      - redis-data:/data
+      - dproject_redis-data:/data
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -134,5 +134,7 @@ services:
       retries: 5
 
 volumes:
-  db-data:
-  redis-data:
+  dproject_db-data:
+    external: true
+  dproject_redis-data:
+    external: true
