@@ -13,7 +13,7 @@ require (
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/go-chi/httprate v0.7.4
 	github.com/google/uuid v1.3.1
-	github.com/gorilla/csrf v1.7.1
+	github.com/gorilla/csrf v1.7.3
 	github.com/gorilla/feeds v1.1.2
 	github.com/gorilla/sessions v1.2.1
 	github.com/jackc/pgx/v5 v5.5.4
@@ -42,7 +42,7 @@ require (
 	github.com/gobwas/pool v0.2.1 // indirect
 	github.com/gobwas/ws v1.4.0 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
-	github.com/gorilla/securecookie v1.1.1 // indirect
+	github.com/gorilla/securecookie v1.1.2 // indirect
 	github.com/huandu/xstrings v1.3.3 // indirect
 	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
