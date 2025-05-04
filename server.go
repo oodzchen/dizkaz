@@ -29,48 +29,27 @@ import (
 	"github.com/sergi/go-diff/diffmatchpatch"
 )
 
-type ServiceConfig struct {
-	sessSecret     string
-	csrfSecret     string
-	store          *store.Store
-	permisisonSrv  *service.Permission
-	sanitizePolicy *bluemonday.Policy
-	i18nCustom     *i18nc.I18nCustom
-	rdb            *redis.Client
-	mail           *service.Mail
-	geoDB          *geoip2.Reader
-}
-
-// func FileServer(r chi.Router, path string, root http.FileSystem) {
-// 	if strings.ContainsAny(path, "{}*") {
-// 		panic("FileServer does not permit any URL parameters.")
-// 	}
-
-// 	if path != "/" && path[len(path)-1] != '/' {
-// 		r.Get(path, http.RedirectHandler(path+"/", 301).ServeHTTP)
-// 		path += "/"
-// 	}
-// 	path += "*"
-
-// 	r.Get(path, func(w http.ResponseWriter, r *http.Request) {
-// 		rctx := chi.RouteContext(r.Context())
-// 		pathPrefix := strings.TrimSuffix(rctx.RoutePattern(), "/*")
-// 		fs := http.StripPrefix(pathPrefix, http.FileServer(root))
-// 		fs.ServeHTTP(w, r)
-// 	})
-// }
-
-func Service(c *ServiceConfig) http.Handler {
+func Server(
+	sessSecret string,
+	csrfSecret string,
+	store *store.Store,
+	permisisonSrv *service.Permission,
+	sanitizePolicy *bluemonday.Policy,
+	i18nCustom *i18nc.I18nCustom,
+	rdb *redis.Client,
+	mail *service.Mail,
+	geoDB *geoip2.Reader,
+) http.Handler {
 	wd, _ := os.Getwd()
 	// fmt.Println("work directory: ", wd)
 	// fmt.Println("templates directory: ", path.Join(wd, "./views/*.tmpl"))
 	tmplPath := path.Join(wd, "./views/*.tmpl")
 	tmplFuncs := template.FuncMap{
 		"permit": func(module, action string) bool {
-			return c.permisisonSrv.Permit(nil, module, action)
+			return permisisonSrv.Permit(nil, module, action)
 		},
-		"local":   c.i18nCustom.LocalTpl,
-		"timeAgo": c.i18nCustom.TimeAgo.Format,
+		"local":   i18nCustom.LocalTpl,
+		"timeAgo": i18nCustom.TimeAgo.Format,
 	}
 
 	baseTmpl := template.New("base").Funcs(TmplFuncs).Funcs(tmplFuncs).Funcs(sprig.FuncMap())
@@ -85,39 +64,39 @@ func Service(c *ServiceConfig) http.Handler {
 	r.Use(middleware.Compress(5, "text/html", "text/css", "text/plain", "text/javascript"))
 	r.Use(middleware.GetHead)
 	// r.Use(middleware.RedirectSlashes)
-	r.Use(mdw.CreateGeoDetect(c.geoDB))
+	r.Use(mdw.CreateGeoDetect(geoDB))
 
 	gob.Register(model.Lang(""))
 
-	sessStore := sessions.NewCookieStore([]byte(c.sessSecret))
+	sessStore := sessions.NewCookieStore([]byte(sessSecret))
 	sessStore.Options.HttpOnly = true
 	sessStore.Options.Secure = !utils.IsDebug()
 	sessStore.Options.SameSite = http.SameSiteLaxMode
 
 	userLogger := &service.UserLogger{
-		Store: c.store,
+		Store: store,
 	}
 
 	settingsManager := &service.SettingsManager{
-		Rdb:      c.rdb,
+		Rdb:      rdb,
 		LifeTime: service.DefaultSettingsLifeTime,
 	}
 	srv := &service.Service{
 		Article: &service.Article{
-			Store:         c.store,
-			SantizePolicy: c.sanitizePolicy,
+			Store:         store,
+			SantizePolicy: sanitizePolicy,
 		},
 		User: &service.User{
-			Store:         c.store,
-			SantizePolicy: c.sanitizePolicy,
+			Store:         store,
+			SantizePolicy: sanitizePolicy,
 		},
-		Permission: c.permisisonSrv,
+		Permission: permisisonSrv,
 		UserLogger: userLogger,
 		Verifier: &service.Verifier{
 			CodeLifeTime: service.DefaultCodeLifeTime,
-			Rdb:          c.rdb,
+			Rdb:          rdb,
 		},
-		Mail:            c.mail,
+		Mail:            mail,
 		SettingsManager: settingsManager,
 	}
 
@@ -127,16 +106,16 @@ func Service(c *ServiceConfig) http.Handler {
 		baseTmpl,
 		sessStore,
 		r,
-		c.store,
-		c.sanitizePolicy,
-		c.i18nCustom,
+		store,
+		sanitizePolicy,
+		i18nCustom,
 		srv,
-		c.rdb,
+		rdb,
 		dmp,
 	)
 
-	r.Use(mdw.FetchUserData(c.store, sessStore, c.permisisonSrv, renderer))
-	r.Use(mdw.CreateUISettingsMiddleware(sessStore, settingsManager, c.i18nCustom))
+	r.Use(mdw.FetchUserData(store, sessStore, permisisonSrv, renderer))
+	r.Use(mdw.CreateUISettingsMiddleware(sessStore, settingsManager, i18nCustom))
 
 	articleResource := web.NewArticleResource(renderer)
 	userResource := web.NewUserResource(renderer)
@@ -197,7 +176,7 @@ func Service(c *ServiceConfig) http.Handler {
 	// 	return nil
 	// })
 
-	CSRF := csrf.Protect([]byte(c.csrfSecret),
+	CSRF := csrf.Protect([]byte(csrfSecret),
 		csrf.FieldName("tk"),
 		csrf.CookieName("sc"),
 		csrf.HttpOnly(true),

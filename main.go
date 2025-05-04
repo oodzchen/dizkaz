@@ -185,16 +185,17 @@ func main() {
 
 	server := &http.Server{
 		Addr: addr,
-		Handler: (Service(&ServiceConfig{
-			sessSecret:     appCfg.SessionSecret,
-			store:          dataStore,
-			permisisonSrv:  permissionSrv,
-			sanitizePolicy: sanitizePolicy,
-			i18nCustom:     i18nCustom,
-			rdb:            redisDB,
-			mail:           mail,
-			geoDB:          geoDB,
-		})),
+		Handler: (Server(
+			appCfg.SessionSecret,
+			appCfg.CSRFSecret,
+			dataStore,
+			permissionSrv,
+			sanitizePolicy,
+			i18nCustom,
+			redisDB,
+			mail,
+			geoDB,
+		)),
 	}
 
 	tlsManager := NewCertManager()
