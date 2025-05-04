@@ -1,6 +1,6 @@
 module github.com/oodzchen/dizkaz
 
-go 1.23.0
+go 1.23
 
 toolchain go1.24.2
 
