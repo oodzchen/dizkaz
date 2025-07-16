@@ -47,6 +47,7 @@ services:
     links:
       - db
       - redis
+
   db:
     image: postgres:15.4
     container_name: "local-webapp-db"
@@ -69,6 +70,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
   nginx:
     image: nginx:1.25.2-alpine
     container_name: "local-nginx"
@@ -76,6 +78,8 @@ services:
     environment:
       - APP_LOCAL_HOST=webapp
       - APP_PORT=$APP_PORT
+      - ANUBIS_LOCAL_HOST=anubis
+      - ANUBIS_PORT=$ANUBIS_PORT
       # - DOMAIN_NAME=$DOMAIN_NAME
       - SECOND_LEVEL_DOMAIN_NAME=$SECOND_LEVEL_DOMAIN_NAME
     volumes:
@@ -89,7 +93,8 @@ services:
       - $NGINX_SSL_PORT:443
       - $NGINX_PORT:80
     depends_on:
-      - webapp
+      - anubis
+      
   goaccess:
     image: allinurl/goaccess:1.7.2
     container_name: "local-goaccess"
@@ -116,6 +121,25 @@ services:
   #   volumes:
   #     - ./nginx/certbot/conf:/etc/letsencrypt
   #     - ./nginx/certbot/www:/var/www/certbot
+  
+  anubis:
+    image: ghcr.io/techarohq/anubis:latest
+    environment:
+      BIND: ":8080"
+      DIFFICULTY: "4"
+      METRICS_BIND: ":9090"
+      SERVE_ROBOTS_TXT: "true"
+      TARGET: http://webapp:${APP_PORT}
+      POLICY_FNAME: "/data/cfg/bot-policy.yaml"
+      OG_PASSTHROUGH: "true"
+      OG_EXPIRY_TIME: "24h"
+    ports:
+      - $ANUBIS_PORT:8080
+      - $ANUBIS_METRIC_PORT:9090
+    volumes:
+      - "./bot-policy.yaml:/data/cfg/bot-policy.yaml:ro"
+    depends_on:
+      - webapp
 
   redis:
     image: kholinchen/credis:latest

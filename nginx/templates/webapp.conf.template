@@ -1,7 +1,11 @@
 # resolver 127.0.0.11 valid=10s;
 
-upstream backend{
+upstream webapp-c{
     server ${APP_LOCAL_HOST}:${APP_PORT};
+}
+
+upstream anubis-c{
+    server ${ANUBIS_LOCAL_HOST}:${ANUBIS_PORT};
 }
 
 # base on https://ssl-config.mozilla.org/#server=nginx&version=1.25.2&config=intermediate&openssl=3.0.9&guideline=5.7
@@ -61,7 +65,7 @@ server {
 
     location / {
         limit_req zone=one burst=5;
-        proxy_pass http://backend;
+        proxy_pass http://anubis-c;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
