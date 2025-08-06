@@ -3,9 +3,7 @@ bots:
     headers_regex:
       CF-Worker: .*
     action: DENY
-  - name: allow-goodbot
-    user_agent_regex: GoodBot
-    action: ALLOW
+  - import: (data)/crawlers/_allow-good.yaml # allows googlebot
   - name: well-known
     path_regex: ^/.well-known/.*$
     action: ALLOW
