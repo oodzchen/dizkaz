@@ -93,7 +93,7 @@ services:
       - $NGINX_PORT:80
     depends_on:
       # - anubis
-      -webapp
+      - webapp
       
   goaccess:
     image: allinurl/goaccess:1.7.2
