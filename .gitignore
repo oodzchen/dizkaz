@@ -25,6 +25,10 @@ tmp
 .secrets*
 *local_testing.yml
 nginx/logs
+nginx/certbot/conf/*
+nginx/certbot/www/*
+!nginx/certbot/conf/.gitkeep
+!nginx/certbot/www/.gitkeep
 tls-cache
 bin
 translate.*.toml

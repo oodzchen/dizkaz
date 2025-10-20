@@ -1,4 +1,6 @@
 #!/bin/sh
+# 此脚本会在 nginx 启动前被 /docker-entrypoint.sh 执行
+# 它在后台启动一个监控进程，监控证书文件变化并自动重载 nginx
 
 # 安装 inotify-tools
 if ! command -v inotifywait > /dev/null; then
@@ -14,6 +16,9 @@ echo "Starting certificate file monitor for: ${CERT_FILE}"
 
 # 后台监控证书文件变化
 (
+    # 等待 nginx 启动
+    sleep 10
+
     while true; do
         if [ -f "$CERT_FILE" ]; then
             # 监控证书文件和目录(证书更新时可能是替换整个目录)
@@ -31,6 +36,4 @@ echo "Starting certificate file monitor for: ${CERT_FILE}"
     done
 ) &
 
-# 启动 nginx
-echo "Starting nginx..."
-nginx -g "daemon off;"
+echo "Certificate monitor started in background"
