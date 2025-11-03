@@ -108,7 +108,7 @@ services:
     volumes:
       - /var/www/goaccess:/var/www/goaccess:rw
       - ./geoip/GeoLite2-City.mmdb:/data/GeoLite2-City.mmdb
-      - /etc/letsencrypt:/etc/letsencrypt
+      - ./nginx/certbot/conf:/etc/letsencrypt
       - ./goaccess.conf:/etc/goaccess/goaccess.conf
       - ./nginx/logs:/data/logs
       - ./manage_static:/data/static
