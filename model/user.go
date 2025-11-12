@@ -193,15 +193,15 @@ func (u *User) Valid(withPassword bool) error {
 }
 
 func ValidPassword(pwd string) error {
-	rePassword := regexp.MustCompile(`[A-Za-z\d[:graph:]]{8,}`)
-	reLetter := regexp.MustCompile(`[A-Za-z]`)
+	rePassword := regexp.MustCompile(`^[A-Za-z\d!@#$%^&*]{12,64}$`)
+	reLowerCase := regexp.MustCompile(`[a-z]`)
+	reUpperCase := regexp.MustCompile(`[A-Z]`)
 	reNum := regexp.MustCompile(`\d`)
-	reNotaion := regexp.MustCompile(`[[:graph:]]`)
+	reSpecial := regexp.MustCompile(`[!@#$%^&*]`)
 
 	pwdBytes := []byte(pwd)
 
-	if !rePassword.Match(pwdBytes) || !reLetter.Match(pwdBytes) || !reNum.Match(pwdBytes) || !reNotaion.Match(pwdBytes) {
-		// return userValidErr("password format error")
+	if !rePassword.Match(pwdBytes) || !reLowerCase.Match(pwdBytes) || !reUpperCase.Match(pwdBytes) || !reNum.Match(pwdBytes) || !reSpecial.Match(pwdBytes) {
 		return errors.New(translator.LocalTpl("FormatError", "FieldNames", translator.LocalTpl("Password")))
 	}
 
