@@ -35,3 +35,6 @@ translate.*.toml
 .vscode
 geoip/*.mmdb
 manage_static/*.html
+*.pgdump
+CLAUDE.md
+AGENTS.md
