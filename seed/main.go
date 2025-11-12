@@ -32,6 +32,9 @@ var replyNumOfReply int
 var replyToId int
 var maxLevel int
 
+var usersCmd *flag.FlagSet
+var usersFile string
+
 func init() {
 	const defaultArticleNum int = 16
 	const defaultUserNum int = 30
@@ -48,10 +51,41 @@ func init() {
 	replyCmd.IntVar(&replyToId, "t", 0, "Article id to reply")
 	replyCmd.IntVar(&maxLevel, "l", 0, "Max nested reply level")
 	replyCmd.IntVar(&replyNumOfReply, "rnr", 1, "reply number of reply")
+
+	usersCmd = flag.NewFlagSet("users", flag.ExitOnError)
+	usersCmd.StringVar(&usersFile, "f", "../config/users.yml", "Users YAML file path")
+	usersCmd.StringVar(&envFile, "e", defaultEnvFile, "ENV file path, default to .env.testing")
 }
 
 func main() {
+	// 检查是否有特定的子命令
+	var subcommand string
+	var subcommandArgs []string
+
+	// 直接检查是否有已知的子命令
+	for i := 1; i < len(os.Args); i++ {
+		arg := os.Args[i]
+		if arg == "reply" || arg == "users" {
+			subcommand = arg
+			if i+1 < len(os.Args) {
+				subcommandArgs = os.Args[i+1:]
+			}
+			break
+		}
+	}
+
+	// 解析全局flag
 	flag.Parse()
+
+	// 如果是子命令，解析子命令的flag
+	if subcommand != "" {
+		switch subcommand {
+		case "reply":
+			replyCmd.Parse(subcommandArgs)
+		case "users":
+			usersCmd.Parse(subcommandArgs)
+		}
+	}
 
 	_, err := os.Stat(envFile)
 
@@ -116,10 +150,10 @@ func main() {
 
 	// var wg sync.WaitGroup
 	fmt.Println("os.Args", os.Args)
-	if len(os.Args) > 1 {
-		switch os.Args[1] {
+	fmt.Println("subcommand:", subcommand)
+	if subcommand != "" {
+		switch subcommand {
 		case "reply":
-			replyCmd.Parse(os.Args[2:])
 			fmt.Println("Reply to article", replyToId, "with", replyNum, "replies")
 			fmt.Println("Max level: ", maxLevel)
 			fmt.Println("Reply number of reply: ", replyNumOfReply)
@@ -129,6 +163,9 @@ func main() {
 
 			wg.Add(replyNum)
 			replyArticle(userSrv, articleSrv)
+		case "users":
+			fmt.Println("Seed users from file:", usersFile)
+			seedUsers(userSrv, usersFile)
 		default:
 			wg.Add(articleNum)
 			seedArticles(userSrv, articleSrv, startTime, categoryType)

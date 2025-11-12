@@ -1,0 +1,39 @@
+# 预定义用户数据配置
+# 用于seed模块的users子命令
+
+users:
+  - email: "admin@example.com"
+    name: "admin"
+    password: "Admin@123456789"
+    role: "admin"
+    super_admin: true
+    introduction: "系统管理员"
+
+  - email: "moderator@example.com"
+    name: "moderator"
+    password: "Moderator@123456"
+    role: "moderator"
+    super_admin: false
+    introduction: "内容审核员"
+
+  - email: "user1@example.com"
+    name: "user1"
+    password: "User1@123456789"
+    role: "common_user"
+    super_admin: false
+    introduction: "普通用户1号"
+
+  - email: "user2@example.com"
+    name: "user2"
+    password: "User2@123456789"
+    role: "common_user"
+    super_admin: false
+    introduction: "普通用户2号"
+
+# 配置说明:
+# email: 用户邮箱，必须唯一
+# name: 用户名，必须唯一且符合用户名规则
+# password: 用户密码，必须符合密码强度要求（至少12位，包含大小写字母、数字和特殊字符!@#$%^&*）
+# role: 用户角色，必须是roles.yml中定义的role_id_list之一
+# super_admin: 是否为超级管理员，true/false
+# introduction: 用户简介，可选

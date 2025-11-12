@@ -111,25 +111,25 @@ ALTER TABLE posts ADD CONSTRAINT posts_reply_to_title_check CHECK (
 CREATE RULE post_del_protect AS ON DELETE TO posts DO INSTEAD NOTHING;
 
 
-INSERT INTO users (email, password, username, introduction, super_admin)
-VALUES
-('anonymous@example.com', :user_default_password, 'anonymous', 'Anonymous placeholder', false),
-('oodzchen@gmail.com', :user_default_password, 'oodzchen', '这是欧辰的自我介绍', true),
-('zhangsan@example.com', :user_default_password, 'zhangsan', '这是张三的自我介绍', false),
-('lisi@example.com', :user_default_password, 'lisi', '这是李四的自我介绍', false),
-('wangwu@example.com', :user_default_password, 'wangwu', '这是王五的自我介绍', false),
-('mazi@example.com', :user_default_password, 'mazi', '这是麻子的自我介绍', false);
+-- INSERT INTO users (email, password, username, introduction, super_admin)
+-- VALUES
+-- ('anonymous@example.com', :user_default_password, 'anonymous', 'Anonymous placeholder', false),
+-- ('oodzchen@gmail.com', :user_default_password, 'oodzchen', '这是欧辰的自我介绍', true),
+-- ('zhangsan@example.com', :user_default_password, 'zhangsan', '这是张三的自我介绍', false),
+-- ('lisi@example.com', :user_default_password, 'lisi', '这是李四的自我介绍', false),
+-- ('wangwu@example.com', :user_default_password, 'wangwu', '这是王五的自我介绍', false),
+-- ('mazi@example.com', :user_default_password, 'mazi', '这是麻子的自我介绍', false);
 
-INSERT INTO categories (front_id, name, author_id, describe, approved)
-VALUES
+-- INSERT INTO categories (front_id, name, author_id, describe, approved)
+-- VALUES
 -- ('computer-science', '计算机技术', 1, '所有与计算机相关的技术讨论，包括不限于编程、操作系统、数据库、机器学习等', true),
 -- ('internet', '网上冲浪', 1, '互联网冲浪时发现的值得分享和讨论的文章、博客、推文等', true),
-('hacker-news', '黑客新闻', 1, '黑客新闻', true),
-('qna', '非技术性问答', 1, '所有非技术类问题', true),
-('technical-qna', '技术性问答', 1, '所有设计到具体的技术细节的问题', true),
-('show', '作品展示', 1, '展示你参与的项目', true),
-('dizkaz', '笛卡', 1, '本站点相关讨论，功能建议和Bug反馈等', true),
-('general', '常规', 1, '暂时找不到分类的内容', true);
+-- ('hacker-news', '黑客新闻', 1, '黑客新闻', true),
+-- ('qna', '非技术性问答', 1, '所有非技术类问题', true),
+-- ('technical-qna', '技术性问答', 1, '所有设计到具体的技术细节的问题', true),
+-- ('show', '作品展示', 1, '展示你参与的项目', true),
+-- ('dizkaz', '笛卡', 1, '本站点相关讨论，功能建议和Bug反馈等', true),
+-- ('general', '常规', 1, '暂时找不到分类的内容', true);
 
 -- -- 文章样例
 -- INSERT INTO posts (title, content, author_id)
