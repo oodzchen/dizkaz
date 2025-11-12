@@ -1,0 +1,39 @@
+# 预定义分类数据配置
+# 用于seed模块的categories子命令
+
+categories:
+  - front_id: "hacker-news"
+    name: "黑客新闻"
+    describe: "黑客新闻"
+    approved: true
+
+  - front_id: "qna"
+    name: "非技术性问答"
+    describe: "所有非技术类问题"
+    approved: true
+
+  - front_id: "technical-qna"
+    name: "技术性问答"
+    describe: "所有设计到具体的技术细节的问题"
+    approved: true
+
+  - front_id: "show"
+    name: "作品展示"
+    describe: "展示你参与的项目"
+    approved: true
+
+  - front_id: "dizkaz"
+    name: "笛卡"
+    describe: "本站点相关讨论，功能建议和Bug反馈等"
+    approved: true
+
+  - front_id: "general"
+    name: "常规"
+    describe: "暂时找不到分类的内容"
+    approved: true
+
+# 配置说明:
+# front_id: 分类前端ID，必须唯一
+# name: 分类名称
+# describe: 分类描述
+# approved: 是否已审核通过，true/false

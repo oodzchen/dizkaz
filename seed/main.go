@@ -35,6 +35,9 @@ var maxLevel int
 var usersCmd *flag.FlagSet
 var usersFile string
 
+var categoriesCmd *flag.FlagSet
+var categoriesFile string
+
 func init() {
 	const defaultArticleNum int = 16
 	const defaultUserNum int = 30
@@ -55,6 +58,10 @@ func init() {
 	usersCmd = flag.NewFlagSet("users", flag.ExitOnError)
 	usersCmd.StringVar(&usersFile, "f", "../config/users.yml", "Users YAML file path")
 	usersCmd.StringVar(&envFile, "e", defaultEnvFile, "ENV file path, default to .env.testing")
+
+	categoriesCmd = flag.NewFlagSet("categories", flag.ExitOnError)
+	categoriesCmd.StringVar(&categoriesFile, "f", "../config/categories.yml", "Categories YAML file path")
+	categoriesCmd.StringVar(&envFile, "e", defaultEnvFile, "ENV file path, default to .env.testing")
 }
 
 func main() {
@@ -65,7 +72,7 @@ func main() {
 	// 直接检查是否有已知的子命令
 	for i := 1; i < len(os.Args); i++ {
 		arg := os.Args[i]
-		if arg == "reply" || arg == "users" {
+		if arg == "reply" || arg == "users" || arg == "categories" {
 			subcommand = arg
 			if i+1 < len(os.Args) {
 				subcommandArgs = os.Args[i+1:]
@@ -84,6 +91,8 @@ func main() {
 			replyCmd.Parse(subcommandArgs)
 		case "users":
 			usersCmd.Parse(subcommandArgs)
+		case "categories":
+			categoriesCmd.Parse(subcommandArgs)
 		}
 	}
 
@@ -166,6 +175,10 @@ func main() {
 		case "users":
 			fmt.Println("Seed users from file:", usersFile)
 			seedUsers(userSrv, usersFile)
+		case "categories":
+			fmt.Println("Seed categories from file:", categoriesFile)
+			categorySrv := service.NewCategory(dataStore)
+			seedCategories(categorySrv, categoriesFile)
 		default:
 			wg.Add(articleNum)
 			seedArticles(userSrv, articleSrv, startTime, categoryType)
