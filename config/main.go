@@ -54,6 +54,15 @@ func (ac *AppConfig) GetServerURL() string {
 	return fmt.Sprintf("%s://%s%s", protocol, ac.DomainName, port)
 }
 
+func (ac *AppConfig) GetServerOrigin() string {
+	port := ":" + strconv.Itoa(ac.NginxPort)
+	if port == ":80" {
+		port = ""
+	}
+
+	return fmt.Sprintf("%s%s", ac.DomainName, port)
+}
+
 // Get app host as host:port
 // func (ac *AppConfig) GetHost() string {
 // 	return fmt.Sprintf("%s:%d", ac.DomainName, ac.AppOuterPort)

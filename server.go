@@ -176,12 +176,18 @@ func Server(
 	// 	return nil
 	// })
 
+	trustOrigins := []string{}
+	if utils.IsDebug(){
+		trustOrigins = append(trustOrigins, config.Config.GetServerOrigin())
+	}
+
 	CSRF := csrf.Protect([]byte(csrfSecret),
 		csrf.FieldName("tk"),
 		csrf.CookieName("sc"),
 		csrf.HttpOnly(true),
 		csrf.Secure(!utils.IsDebug()),
 		csrf.Path("/"),
+		csrf.TrustedOrigins(trustOrigins),
 		// csrf.ErrorHandler(r),
 	)
 	return CSRF(r)
