@@ -6,7 +6,7 @@ services:
     environment:
       DB_CONTAINER_NAME: "webapp-db-1"
       DB_HOST: "db"
-      DB_PORT: 5432
+      DB_PORT: $DB_PORT
       DOMAIN_NAME: $DOMAIN_NAME
       DB_NAME: $DB_NAME
       DB_USER: $DB_USER
@@ -36,6 +36,8 @@ services:
       APP_VERSION: $APP_VERSION
       CLOUDFLARE_SITE_KEY: $CLOUDFLARE_SITE_KEY
       CLOUDFLARE_SECRET: $CLOUDFLARE_SECRET
+    ports:
+      - $DB_PORT:5432
     volumes:
       - ./manage_static:/app/manage_static
     depends_on:
