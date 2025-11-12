@@ -25,6 +25,7 @@ type Role struct {
 	Name                 string
 	CreatedAt            time.Time
 	IsDefault            bool
+	IsDefaultForNewUsers bool
 	Permissions          []*Permission
 	FormattedPermissions []*PermissionListItem
 }

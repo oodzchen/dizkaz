@@ -159,6 +159,12 @@ type RoleStore interface {
 	UpdateWithFrontId(roleId int, name string, permissionFrontIds []string) (int, error)
 	Item(int) (*model.Role, error)
 	Delete(int) error
+
+	// Get default role
+	GetDefault() (*model.Role, error)
+
+	// Set default role
+	SetDefault(id int) error
 }
 
 type ActivityStore interface {

@@ -307,6 +307,10 @@ other = "既にブロックされた地域"
 hash = "sha1-89dd3635b4b67d2f0953f56dc2f801b15588dd10"
 other = "DizKaz"
 
+[BtnCancel]
+hash = "sha1-1234567890abcdef1234567890abcdef12345678"
+other = "キャンセル"
+
 [BtnBan]
 hash = "sha1-bfa1bfbf6c1cd85f3d2b4f696a8d5761ff6c91ee"
 other = "禁止"
@@ -450,6 +454,22 @@ other = "新しいパスワードを確認する"
 [ConfirmUnban]
 hash = "sha1-68b2c9ba2a9fdb998938c497ee07c6a9b652edbd"
 other = "{{.Name}}の禁止を解除しますか？"
+
+[ConfirmSetDefaultRole]
+hash = "sha1-1234567890abcdef1234567890abcdef12345678"
+other = "新規ユーザーのデフォルト役割を設定"
+
+[SetDefaultRoleConfirmMessage]
+hash = "sha1-234567890abcdef1234567890abcdef1234567890"
+other = "{{.RoleName}} を新規ユーザーのデフォルト役割に設定しますか？"
+
+[SetDefaultRoleConfirmDescription]
+hash = "sha1-34567890abcdef1234567890abcdef12345678901"
+other = "新規ユーザーは登録後に自動的にこの役割が割り当てられます。"
+
+[DefaultForNewUsers]
+hash = "sha1-4567890abcdef1234567890abcdef123456789012"
+other = "新規ユーザーのデフォルト役割"
 
 [Content]
 hash = "sha1-4f9be057f0ea5d2ba72fd2c810e8d7b9aa98b469"
@@ -1034,3 +1054,7 @@ other = "投票しました"
 [Weight]
 hash = "sha1-c3c6f9c00570e41e9c3305fce571e511593c5eb4"
 other = "{{.Weight}} ウェイト"
+
+[AcAction_set_default_role]
+hash = "sha1-8a59b65d21e42409585cf850b64587e2ee783489"
+other = "新規ユーザーのデフォルト役割を設定"

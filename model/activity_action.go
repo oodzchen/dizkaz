@@ -30,6 +30,7 @@ ENUM(
    fade_out_article, // Fade out article
    ban_user, // Ban user
    unban_user, // Unban user
+   set_default_role, // Set default role for new users
 )
 */
 type AcAction string

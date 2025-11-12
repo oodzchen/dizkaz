@@ -1,0 +1,28 @@
+{{define "role_set_default_confirm"}}
+
+    {{template "head" .}}
+
+    {{- $csrfField := .CSRFField -}}
+    {{- $role := .Data.Role -}}
+
+    <div class="card">
+        <h2>{{local "ConfirmSetDefaultRole"}}</h2>
+
+        <div class="form__row">
+            <p>{{local "SetDefaultRoleConfirmMessage" "RoleName" $role.Name}}</p>
+            <p class="text-lighten-2">{{local "SetDefaultRoleConfirmDescription"}}</p>
+        </div>
+
+        <form class="form" method="post" action="/manage/roles/{{$role.Id}}/set_default">
+            {{$csrfField}}
+            <div class="form__row">
+                <button type="submit" class="btn btn-primary">{{local "BtnConfirm"}}</button>
+                <span style="margin-left: 1rem;"></span>
+                <a href="/manage/roles" class="btn btn-secondary">{{local "BtnCancel"}}</a>
+            </div>
+        </form>
+    </div>
+
+    {{template "foot" .}}
+
+{{end}}

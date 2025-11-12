@@ -23,7 +23,7 @@ func (r *Role) List(page, pageSize int) ([]*model.Role, error) {
 	}
 
 	sqlStr := `
-SELECT r.id, r.name, r.front_id, r.created_at, r.is_default, COALESCE(p.id, 0) AS p_id, COALESCE(p.name, '') AS p_name, COALESCE(p.front_id, '') AS p_front_id, COALESCE(p.module, 'user') AS p_module, COALESCE(p.created_at, NOW()) AS p_created_at
+SELECT r.id, r.name, r.front_id, r.created_at, r.is_default, r.is_default_for_new_users, COALESCE(p.id, 0) AS p_id, COALESCE(p.name, '') AS p_name, COALESCE(p.front_id, '') AS p_front_id, COALESCE(p.module, 'user') AS p_module, COALESCE(p.created_at, NOW()) AS p_created_at
 FROM roles r
 LEFT JOIN role_permissions rp ON rp.role_id = r.id
 LEFT JOIN permissions p ON rp.permission_id = p.id
@@ -53,6 +53,7 @@ ORDER BY r.created_at DESC`
 			&item.FrontId,
 			&item.CreatedAt,
 			&item.IsDefault,
+			&item.IsDefaultForNewUsers,
 			&pItem.Id,
 			&pItem.Name,
 			&pItem.FrontId,
@@ -152,7 +153,7 @@ func (r *Role) CreateWithFrontId(frontId, name string, permissionFrontIds []stri
 }
 
 func (r *Role) CreateManyWithFrontId(list []*model.Role) error {
-	sqlStrHead := `INSERT INTO roles (front_id, name, is_default) VALUES `
+	sqlStrHead := `INSERT INTO roles (front_id, name, is_default, is_default_for_new_users) VALUES `
 	sqlStrTail := ` RETURNING (id)`
 
 	var strArr []string
@@ -160,7 +161,8 @@ func (r *Role) CreateManyWithFrontId(list []*model.Role) error {
 	var argCount = 1
 
 	for _, item := range list {
-		strArr = append(strArr, fmt.Sprintf("($%d, $%d, true)", argCount, argCount+1))
+		// 系统预设角色标记为 is_default = true，但默认不设为新用户默认角色
+		strArr = append(strArr, fmt.Sprintf("($%d, $%d, true, false)", argCount, argCount+1))
 		args = append(args, item.FrontId, item.Name)
 		argCount += 2
 	}
@@ -320,7 +322,7 @@ func (r *Role) UpdateWithFrontId(id int, name string, permissionFrontIds []strin
 
 func (r *Role) Item(id int) (*model.Role, error) {
 	sqlStr := `
-SELECT r.id, r.name, r.front_id, r.created_at, r.is_default, COALESCE(p.id, 0) AS p_id, COALESCE(p.name, '') AS p_name, COALESCE(p.front_id, '') AS p_front_id, COALESCE(p.module, 'user') AS p_module, COALESCE(p.created_at, NOW()) AS p_created_at
+SELECT r.id, r.name, r.front_id, r.created_at, r.is_default, r.is_default_for_new_users, COALESCE(p.id, 0) AS p_id, COALESCE(p.name, '') AS p_name, COALESCE(p.front_id, '') AS p_front_id, COALESCE(p.module, 'user') AS p_module, COALESCE(p.created_at, NOW()) AS p_created_at
 FROM roles r
 LEFT JOIN role_permissions rp ON rp.role_id = r.id
 LEFT JOIN permissions p ON rp.permission_id = p.id
@@ -344,6 +346,7 @@ WHERE r.id = $1`
 			&item.FrontId,
 			&item.CreatedAt,
 			&item.IsDefault,
+			&item.IsDefaultForNewUsers,
 			&pItem.Id,
 			&pItem.Name,
 			&pItem.FrontId,
@@ -371,5 +374,74 @@ func (r *Role) Delete(id int) error {
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+func (r *Role) GetDefault() (*model.Role, error) {
+	sqlStr := `
+SELECT r.id, r.name, r.front_id, r.created_at, r.is_default, r.is_default_for_new_users, COALESCE(p.id, 0) AS p_id, COALESCE(p.name, '') AS p_name, COALESCE(p.front_id, '') AS p_front_id, COALESCE(p.module, 'user') AS p_module, COALESCE(p.created_at, NOW()) AS p_created_at
+FROM roles r
+LEFT JOIN role_permissions rp ON rp.role_id = r.id
+LEFT JOIN permissions p ON rp.permission_id = p.id
+WHERE r.is_default_for_new_users = true AND r.deleted = false
+ORDER BY r.created_at DESC
+LIMIT 1`
+
+	rows, err := r.dbPool.Query(context.Background(), sqlStr)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	var item model.Role
+	for rows.Next() {
+		var pItem model.Permission
+		err := rows.Scan(
+			&item.Id,
+			&item.Name,
+			&item.FrontId,
+			&item.CreatedAt,
+			&item.IsDefault,
+			&item.IsDefaultForNewUsers,
+			&pItem.Id,
+			&pItem.Name,
+			&pItem.FrontId,
+			&pItem.Module,
+			&pItem.CreatedAt,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		if pItem.Id != 0 {
+			if item.Permissions == nil {
+				item.Permissions = []*model.Permission{&pItem}
+			} else {
+				item.Permissions = append(item.Permissions, &pItem)
+			}
+		}
+	}
+
+	if item.Id == 0 {
+		return nil, nil
+	}
+
+	return &item, nil
+}
+
+func (r *Role) SetDefault(id int) error {
+	// 首先清除所有新用户默认角色标记
+	_, err := r.dbPool.Exec(context.Background(), "UPDATE roles SET is_default_for_new_users = false WHERE is_default_for_new_users = true")
+	if err != nil {
+		return err
+	}
+
+	// 设置新的新用户默认角色
+	_, err = r.dbPool.Exec(context.Background(), "UPDATE roles SET is_default_for_new_users = true WHERE id = $1", id)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

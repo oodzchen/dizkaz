@@ -69,6 +69,10 @@ func (mr *ManageResource) Routes() http.Handler {
 				r.With(mdw.UserLogger(
 					mr.uLogger, model.AcTypeManage, model.AcActionEditRole, model.AcModelRole, mdw.ULogRoleId),
 				).Post("/{roleId}/edit", mr.RoleEditSubmit)
+				r.Get("/{roleId}/set_default/confirm", mr.RoleSetDefaultConfirm)
+				r.With(mdw.UserLogger(
+					mr.uLogger, model.AcTypeManage, model.AcActionSetDefaultRole, model.AcModelRole, mdw.ULogRoleId),
+				).Post("/{roleId}/set_default", mr.RoleSetDefault)
 			})
 		})
 
@@ -800,4 +804,91 @@ func (mr *ManageResource) TrashPage(w http.ResponseWriter, r *http.Request) {
 			},
 		},
 	})
+}
+
+func (mr *ManageResource) RoleSetDefaultConfirm(w http.ResponseWriter, r *http.Request) {
+	roleIdStr := chi.URLParam(r, "roleId")
+	roleId, err := strconv.Atoi(roleIdStr)
+	if err != nil {
+		mr.Error("", err, w, r, http.StatusBadRequest)
+		return
+	}
+
+	// 获取角色信息
+	role, err := mr.store.Role.Item(roleId)
+	if err != nil {
+		mr.Error("", err, w, r, http.StatusInternalServerError)
+		return
+	}
+
+	// 检查是否尝试设置 admin 或 moderator 为默认角色
+	if role.FrontId == string(model.DefaultUserRoleAdmin) || role.FrontId == string(model.DefaultUserRoleModerator) {
+		mr.Error("Cannot set admin or moderator as default role for new users", nil, w, r, http.StatusBadRequest)
+		return
+	}
+
+	type RoleSetDefaultConfirmData struct {
+		Role *model.Role
+	}
+
+	title := mr.Local("ConfirmSetDefaultRole")
+	breadCrumbs := []*model.BreadCrumb{
+		{
+			Path: "/manage/roles",
+			Name: mr.Local("List", "Name", mr.Local("Role", "Count", 1)),
+		},
+		{
+			Path: fmt.Sprintf("/manage/roles/%d/set_default/confirm", roleId),
+			Name: title,
+		},
+	}
+
+	mr.SavePrevPage(w, r)
+
+	mr.Render(w, r, "role_set_default_confirm", &model.PageData{
+		Title:       title,
+		BreadCrumbs: breadCrumbs,
+		Data: &RoleSetDefaultConfirmData{
+			Role: role,
+		},
+	})
+}
+
+func (mr *ManageResource) RoleSetDefault(w http.ResponseWriter, r *http.Request) {
+	roleIdStr := chi.URLParam(r, "roleId")
+	roleId, err := strconv.Atoi(roleIdStr)
+	if err != nil {
+		mr.Error("", err, w, r, http.StatusBadRequest)
+		return
+	}
+
+	// 获取角色信息
+	role, err := mr.store.Role.Item(roleId)
+	if err != nil {
+		mr.Error("", err, w, r, http.StatusInternalServerError)
+		return
+	}
+
+	// 检查当前用户权限
+	currUser := mr.GetLoginedUserData(r)
+	if currUser == nil {
+		mr.Error("", errors.New("require login"), w, r, http.StatusUnauthorized)
+		return
+	}
+
+	// 检查是否尝试设置 admin 或 moderator 为默认角色
+	if role.FrontId == string(model.DefaultUserRoleAdmin) || role.FrontId == string(model.DefaultUserRoleModerator) {
+		mr.Error("Cannot set admin or moderator as default role for new users", nil, w, r, http.StatusBadRequest)
+		return
+	}
+
+	// 设置默认角色
+	err = mr.store.Role.SetDefault(roleId)
+	if err != nil {
+		mr.Error("", err, w, r, http.StatusInternalServerError)
+		return
+	}
+
+	mr.Session("one", w, r).Flash("Set default role for new users successfully")
+	http.Redirect(w, r, "/manage/roles", http.StatusFound)
 }

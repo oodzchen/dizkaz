@@ -63,6 +63,7 @@ CREATE TABLE roles (
     deleted BOOLEAN NOT NULL DEFAULT false,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     is_default BOOLEAN NOT NULL DEFAULT false,
+    is_default_for_new_users BOOLEAN NOT NULL DEFAULT false,
     UNIQUE(front_id)
 );
 
@@ -165,9 +166,10 @@ CREATE TABLE reputation_log (
 --     is_used BOOLEAN NOT NULL DEFAULT false
 -- )
 
--- INSERT INTO roles (front_id, name) VALUES ('user', 'User');
--- INSERT INTO roles (front_id, name) VALUES ('moderator', 'Moderator');
--- INSERT INTO roles (front_id, name) VALUES ('admin', 'Admin');
+-- INSERT INTO roles (front_id, name, is_default, is_default_for_new_users) VALUES ('common_user', 'Common User', true, true);
+-- INSERT INTO roles (front_id, name, is_default, is_default_for_new_users) VALUES ('banned_user', 'Banned User', true, false);
+-- INSERT INTO roles (front_id, name, is_default, is_default_for_new_users) VALUES ('moderator', 'Moderator', true, false);
+-- INSERT INTO roles (front_id, name, is_default, is_default_for_new_users) VALUES ('admin', 'Admin', true, false);
 
 -- INSERT INTO permissions (front_id, name, module) VALUES ('create_article', 'Create article', 'article');
 -- INSERT INTO permissions (front_id, name, module) VALUES ('create_reply', 'Create reply', 'article');

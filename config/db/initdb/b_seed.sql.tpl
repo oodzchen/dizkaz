@@ -122,8 +122,6 @@ CREATE RULE post_del_protect AS ON DELETE TO posts DO INSTEAD NOTHING;
 
 -- INSERT INTO categories (front_id, name, author_id, describe, approved)
 -- VALUES
--- ('computer-science', '计算机技术', 1, '所有与计算机相关的技术讨论，包括不限于编程、操作系统、数据库、机器学习等', true),
--- ('internet', '网上冲浪', 1, '互联网冲浪时发现的值得分享和讨论的文章、博客、推文等', true),
 -- ('hacker-news', '黑客新闻', 1, '黑客新闻', true),
 -- ('qna', '非技术性问答', 1, '所有非技术类问题', true),
 -- ('technical-qna', '技术性问答', 1, '所有设计到具体的技术细节的问题', true),

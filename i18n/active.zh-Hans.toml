@@ -307,6 +307,10 @@ other = "已屏蔽地区"
 hash = "sha1-89dd3635b4b67d2f0953f56dc2f801b15588dd10"
 other = "笛卡"
 
+[BtnCancel]
+hash = "sha1-1234567890abcdef1234567890abcdef12345678"
+other = "取消"
+
 [BtnBan]
 hash = "sha1-bfa1bfbf6c1cd85f3d2b4f696a8d5761ff6c91ee"
 other = "封禁"
@@ -450,6 +454,22 @@ other = "确认新密码"
 [ConfirmUnban]
 hash = "sha1-68b2c9ba2a9fdb998938c497ee07c6a9b652edbd"
 other = "确定解封{{.Name}}？"
+
+[ConfirmSetDefaultRole]
+hash = "sha1-1234567890abcdef1234567890abcdef12345678"
+other = "设置新用户默认角色"
+
+[SetDefaultRoleConfirmMessage]
+hash = "sha1-234567890abcdef1234567890abcdef1234567890"
+other = "确定将 {{.RoleName}} 设置为新用户默认角色？"
+
+[SetDefaultRoleConfirmDescription]
+hash = "sha1-34567890abcdef1234567890abcdef12345678901"
+other = "新用户注册后将自动被分配此角色。"
+
+[DefaultForNewUsers]
+hash = "sha1-4567890abcdef1234567890abcdef123456789012"
+other = "新用户默认角色"
 
 [Content]
 hash = "sha1-4f9be057f0ea5d2ba72fd2c810e8d7b9aa98b469"
@@ -1034,3 +1054,7 @@ other = "投过票"
 [Weight]
 hash = "sha1-c3c6f9c00570e41e9c3305fce571e511593c5eb4"
 other = "{{.Weight}} 权重"
+
+[AcAction_set_default_role]
+hash = "sha1-8a59b65d21e42409585cf850b64587e2ee783489"
+other = "设置新用户默认角色"

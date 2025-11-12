@@ -831,6 +831,26 @@ func (ic *I18nCustom) AddConfigs() {
 	})
 
 	ic.AddLocalizeConfig(&i18n.Message{
+		ID:    "ConfirmSetDefaultRole",
+		Other: "Set Default Role for New Users",
+	})
+
+	ic.AddLocalizeConfig(&i18n.Message{
+		ID:    "SetDefaultRoleConfirmMessage",
+		Other: "Are you sure you want to set {{.RoleName}} as the default role for new users?",
+	})
+
+	ic.AddLocalizeConfig(&i18n.Message{
+		ID:    "SetDefaultRoleConfirmDescription",
+		Other: "New users will automatically be assigned this role upon registration.",
+	})
+
+	ic.AddLocalizeConfig(&i18n.Message{
+		ID:    "DefaultForNewUsers",
+		Other: "Default for New Users",
+	})
+
+	ic.AddLocalizeConfig(&i18n.Message{
 		ID:    "UnbanTime",
 		Other: "Unban time",
 	})

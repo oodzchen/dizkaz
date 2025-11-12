@@ -50,7 +50,19 @@ func (u *User) Register(email string, password string, name string) (int, error)
 		return 0, err
 	}
 
-	return u.Store.User.Create(email, password, name, string(model.DefaultUserRoleCommon))
+	// 获取新用户默认角色
+	defaultRole, err := u.Store.Role.GetDefault()
+	if err != nil {
+		return 0, err
+	}
+
+	// 如果没有设置默认角色，或者默认角色是 admin 或 moderator，则使用 common_user
+	roleFrontId := string(model.DefaultUserRoleCommon)
+	if defaultRole != nil && defaultRole.FrontId != string(model.DefaultUserRoleAdmin) && defaultRole.FrontId != string(model.DefaultUserRoleModerator) {
+		roleFrontId = defaultRole.FrontId
+	}
+
+	return u.Store.User.Create(email, password, name, roleFrontId)
 }
 
 func (u *User) GetPosts(username string, listType UserListType) ([]*model.Article, error) {

@@ -3,6 +3,7 @@
     {{template "head" .}}
 
     {{- $isSuperAdmin := (and .LoginedUser .LoginedUser.Super) -}}
+    {{- $csrfField := .CSRFField -}}
     <div class="page-tab">
 	<div></div>
 	<div>
@@ -16,9 +17,10 @@
 		<th>Role Name</th>
 		<th>Front Id</th>
 		<th>Created At</th>
-		<th>Default Role</th>
+		<th>System Default</th>
+		<th>{{local "DefaultForNewUsers"}}</th>
 		<th>Permisisons</th>
-		<th width="120px">Operations</th>
+		<th width="150px">Operations</th>
 	    </tr>
 	</thead>
 	<tbody>
@@ -28,6 +30,17 @@
 		    <td>{{.FrontId}}</td>
 		    <td>{{timeFormat .CreatedAt "YYYY-MM-DD hh:mm:ss"}}</td>
 		    <td>{{if .IsDefault}}Yes{{else}}No{{end}}</td>
+		    <td>
+			{{if .IsDefaultForNewUsers}}
+			    <span class="text-success">✓ Default</span>
+			{{else}}
+			    {{- if and (ne .FrontId "admin") (ne .FrontId "moderator") -}}
+				<a href="/manage/roles/{{.Id}}/set_default/confirm" class="btn-link">Set as Default</a>
+			    {{- else -}}
+				<span class="text-lighten-2">Not allowed</span>
+			    {{- end -}}
+			{{end}}
+		    </td>
 		    <td>
 			{{$role := .}}
 

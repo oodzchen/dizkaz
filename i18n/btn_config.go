@@ -149,6 +149,11 @@ func (ic *I18nCustom) AddBtnConfigs() {
 	})
 
 	ic.AddLocalizeConfig(&i18n.Message{
+		ID:    "BtnCancel",
+		Other: "Cancel",
+	})
+
+	ic.AddLocalizeConfig(&i18n.Message{
 		ID:    "BtnConfirm",
 		Other: "Confirm",
 	})
