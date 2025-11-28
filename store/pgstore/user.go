@@ -138,9 +138,13 @@ func (u *User) Create(email, password, name string, roleFrontId string) (int, er
 		return 0, err
 	}
 
-	_, err = u.dbPool.Exec(context.Background(), "INSERT INTO user_roles (user_id, role_id) SELECT $1, id FROM roles WHERE front_id = $2", id, roleFrontId)
+	result, err := u.dbPool.Exec(context.Background(), "INSERT INTO user_roles (user_id, role_id) SELECT $1, id FROM roles WHERE front_id = $2", id, roleFrontId)
 	if err != nil {
 		return 0, err
+	}
+
+	if result.RowsAffected() == 0 {
+		return 0, fmt.Errorf("role with front_id '%s' not found", roleFrontId)
 	}
 
 	return id, nil
@@ -157,9 +161,13 @@ func (u *User) CreateWithOAuth(email, username, roleFrontId, authType string) (i
 		return 0, err
 	}
 
-	_, err = u.dbPool.Exec(context.Background(), "INSERT INTO user_roles (user_id, role_id) SELECT $1, id FROM roles WHERE front_id = $2", id, roleFrontId)
+	result, err := u.dbPool.Exec(context.Background(), "INSERT INTO user_roles (user_id, role_id) SELECT $1, id FROM roles WHERE front_id = $2", id, roleFrontId)
 	if err != nil {
 		return 0, err
+	}
+
+	if result.RowsAffected() == 0 {
+		return 0, fmt.Errorf("role with front_id '%s' not found", roleFrontId)
 	}
 
 	return id, nil
